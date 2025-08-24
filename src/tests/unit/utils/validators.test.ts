@@ -1,5 +1,4 @@
 import { ValidationService } from '../../../utils/validators.js';
-import { ValidationError } from '../../../utils/errors.js';
 
 describe('ValidationService', () => {
   describe('IP Address Validation', () => {

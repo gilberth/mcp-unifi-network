@@ -236,7 +236,7 @@ including device management, client monitoring, firewall configuration, and netw
 
 ## Connection Status
 
-${tools.length > 0 ? '✅ **Connected** - All tools are available for use.' : '⚠️ **Not Connected** - Connect to UniFi first using the \`unifi_connect\` tool.'}
+${tools.length > 0 ? '✅ **Connected** - All tools are available for use.' : '⚠️ **Not Connected** - Connect to UniFi first using the `unifi_connect` tool.'}
 
 ## Features
 

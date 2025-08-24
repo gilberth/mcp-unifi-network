@@ -22,6 +22,7 @@ const scheduleDeviceBlockTool: MCPTool = {
     properties: {},
     additionalProperties: false
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   handler: async (_params: any): Promise<ToolResult> => {
     return {
       success: true,
@@ -33,6 +34,7 @@ const scheduleDeviceBlockTool: MCPTool = {
 
 export async function registerAutomationTools(
   registry: ToolRegistry,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   _client: UniFiClient
 ): Promise<void> {
   registry.register(scheduleDeviceBlockTool);

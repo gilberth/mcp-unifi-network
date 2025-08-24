@@ -30,11 +30,13 @@ You need to configure the following secret in your GitHub repository:
 ## Workflow Behavior
 
 ### On Pull Request
+
 - Runs tests and linting
 - Builds the project
 - **Does NOT publish to npm**
 
 ### On Push to Main
+
 - Runs tests and linting
 - Builds the project
 - Checks if package.json version differs from published npm version
@@ -44,6 +46,7 @@ You need to configure the following secret in your GitHub repository:
 ## Publishing New Versions
 
 ### Method 1: Manual Version Bump
+
 ```bash
 # Edit package.json and change the version number
 # Then commit and push
@@ -53,6 +56,7 @@ git push
 ```
 
 ### Method 2: Using npm Scripts
+
 ```bash
 # Patch version (1.4.1 → 1.4.2)
 npm run publish:patch
@@ -65,6 +69,7 @@ npm run publish:major
 ```
 
 ### Method 3: Direct npm version
+
 ```bash
 npm version patch && git push --follow-tags
 npm version minor && git push --follow-tags
@@ -86,14 +91,17 @@ npm version major && git push --follow-tags
 ## Troubleshooting
 
 ### Publishing Failed
+
 1. Check that `NPM_AUTOMATION_TOKEN` secret is set correctly
 2. Verify the token has publish permissions
 3. Ensure package.json version is higher than current published version
 
 ### Tests Failed
+
 1. Check the Actions tab for detailed error messages
 2. Run tests locally: `npm test`
 3. Run linting locally: `npm run lint`
 
 ### Version Not Publishing
+
 The workflow only publishes when the version in `package.json` is different from the version published on npm. If versions are the same, it will skip publishing.

@@ -686,6 +686,7 @@ export class UniFiClient {
    * Get current configuration (without sensitive data)
    */
   getConfig(): Omit<UniFiClientOptions, 'apiKey'> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     const { apiKey, ...config } = this.config;
     return config;
   }

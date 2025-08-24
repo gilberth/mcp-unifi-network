@@ -22,6 +22,7 @@ const getSiteStatsTool: MCPTool = {
     properties: {},
     additionalProperties: false
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   handler: async (_params: any): Promise<ToolResult> => {
     return {
       success: true,
@@ -33,6 +34,7 @@ const getSiteStatsTool: MCPTool = {
 
 export async function registerMonitoringTools(
   registry: ToolRegistry,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   _client: UniFiClient
 ): Promise<void> {
   registry.register(getSiteStatsTool);

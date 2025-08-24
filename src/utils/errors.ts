@@ -249,9 +249,10 @@ export class ErrorFactory {
         return new NetworkTimeoutError(message, 30000, details);
       case 409:
         return new ResourceConflictError(message, undefined, details);
-      case 429:
+      case 429: {
         const retryAfter = error.response?.headers?.['retry-after'];
         return new RateLimitError(message, retryAfter, details);
+      }
       case 500:
       case 502:
       case 503:
@@ -271,6 +272,7 @@ export class ErrorFactory {
 
   static fromNetworkError(
     error: any,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     _context?: Record<string, any>
   ): UniFiMCPError {
     if (error.code === 'ECONNREFUSED') {
@@ -314,6 +316,7 @@ export class ErrorFactory {
 
   static fromValidationError(
     zodError: any,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     _context?: Record<string, any>
   ): ValidationError {
     const issues = zodError.issues || [];
@@ -409,6 +412,7 @@ export class ErrorRecovery {
 
   static async withCircuitBreaker<T>(
     operation: () => Promise<T>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     _circuitBreakerConfig?: {
       failureThreshold?: number;
       resetTimeout?: number;

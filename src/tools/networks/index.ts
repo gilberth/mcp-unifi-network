@@ -22,6 +22,7 @@ const getNetworksTool: MCPTool = {
     properties: {},
     additionalProperties: false
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   handler: async (_params: any): Promise<ToolResult> => {
     return {
       success: true,
@@ -33,6 +34,7 @@ const getNetworksTool: MCPTool = {
 
 export async function registerNetworkTools(
   registry: ToolRegistry,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   _client: UniFiClient
 ): Promise<void> {
   registry.register(getNetworksTool);

@@ -32,7 +32,7 @@ export class UniFiMCPServer {
   private toolRegistry: ToolRegistry;
   private logger = createComponentLogger('mcp-server');
   private isInitialized = false;
-  private healthCheckInterval: NodeJS.Timeout | null = null;
+  private healthCheckInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor(server: Server) {
     this.server = server;

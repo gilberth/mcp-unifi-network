@@ -24,6 +24,7 @@ const getZonesTool: MCPTool = {
     properties: {},
     additionalProperties: false
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   handler: async (_params: any): Promise<ToolResult> => {
     return {
       success: true,
@@ -35,7 +36,9 @@ const getZonesTool: MCPTool = {
 
 export async function registerZBFTools(
   registry: ToolRegistry,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   _client: UniFiClient,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   _versionDetector: VersionDetector
 ): Promise<void> {
   registry.register(getZonesTool);

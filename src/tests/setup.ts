@@ -26,7 +26,7 @@ global.console = {
 
 // Declare global test utilities type
 declare global {
-  var testUtils: {
+  const testUtils: {
     mockUniFiResponse: (data: any) => any;
     mockErrorResponse: (message: string) => any;
   };
