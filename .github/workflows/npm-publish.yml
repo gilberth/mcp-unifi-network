@@ -1,0 +1,129 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Build project
+      run: npm run build
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build project
+      run: npm run build
+    
+    - name: Check if version changed
+      id: version-check
+      run: |
+        CURRENT_VERSION=$(node -p "require('./package.json').version")
+        echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+        
+        # Get the latest published version from npm
+        PUBLISHED_VERSION=$(npm view @thelord/unifi-mcp-server version 2>/dev/null || echo "0.0.0")
+        echo "published_version=$PUBLISHED_VERSION" >> $GITHUB_OUTPUT
+        
+        if [ "$CURRENT_VERSION" != "$PUBLISHED_VERSION" ]; then
+          echo "version_changed=true" >> $GITHUB_OUTPUT
+          echo "Version changed from $PUBLISHED_VERSION to $CURRENT_VERSION"
+        else
+          echo "version_changed=false" >> $GITHUB_OUTPUT
+          echo "Version unchanged: $CURRENT_VERSION"
+        fi
+    
+    - name: Publish to npm
+      if: steps.version-check.outputs.version_changed == 'true'
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
+    
+    - name: Create GitHub Release
+      if: steps.version-check.outputs.version_changed == 'true'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.version-check.outputs.current_version }}
+        release_name: Release v${{ steps.version-check.outputs.current_version }}
+        body: |
+          ## Changes in v${{ steps.version-check.outputs.current_version }}
+          
+          Auto-generated release for npm package @thelord/unifi-mcp-server
+          
+          ### Package Information
+          - **npm Package**: [@thelord/unifi-mcp-server](https://www.npmjs.com/package/@thelord/unifi-mcp-server)
+          - **Version**: ${{ steps.version-check.outputs.current_version }}
+          - **Installation**: `npm install -g @thelord/unifi-mcp-server`
+          
+          ### Installation Methods
+          ```bash
+          # Global installation
+          npm install -g @thelord/unifi-mcp-server@${{ steps.version-check.outputs.current_version }}
+          
+          # Local installation
+          npm install @thelord/unifi-mcp-server@${{ steps.version-check.outputs.current_version }}
+          
+          # Direct execution
+          npx @thelord/unifi-mcp-server@${{ steps.version-check.outputs.current_version }}
+          ```
+        draft: false
+        prerelease: false
+    
+    - name: Skip publish (no version change)
+      if: steps.version-check.outputs.version_changed == 'false'
+      run: |
+        echo "⏭️ Skipping npm publish - version unchanged"
+        echo "Current version: ${{ steps.version-check.outputs.current_version }}"
+        echo "Published version: ${{ steps.version-check.outputs.published_version }}"
+        echo ""
+        echo "To publish a new version:"
+        echo "1. Update version in package.json"
+        echo "2. Commit and push changes"
+        echo "3. Or use: npm version patch|minor|major && git push --follow-tags"

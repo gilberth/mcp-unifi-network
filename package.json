@@ -8,9 +8,14 @@
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
+    "test": "echo \"No tests specified\" && exit 0",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "publish:patch": "npm version patch && git push --follow-tags",
+    "publish:minor": "npm version minor && git push --follow-tags",
+    "publish:major": "npm version major && git push --follow-tags"
   },
   "keywords": [
     "mcp",
@@ -35,11 +40,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gilberth/unifi-mcp-server.git"
+    "url": "git+https://github.com/gilberth/mcp-unifi-network.git"
   },
-  "homepage": "https://github.com/gilberth/unifi-mcp-server#readme",
+  "homepage": "https://github.com/gilberth/mcp-unifi-network#readme",
   "bugs": {
-    "url": "https://github.com/gilberth/unifi-mcp-server/issues"
+    "url": "https://github.com/gilberth/mcp-unifi-network/issues"
   },
   "bin": {
     "unifi-mcp-server": "dist/index.js"
