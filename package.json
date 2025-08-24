@@ -1,0 +1,77 @@
+{
+  "name": "@thelord/unifi-mcp-server",
+  "version": "1.4.1",
+  "description": "Model Context Protocol server for UniFi Network API with comprehensive tool documentation and web server for OpenAPI specs",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "mcp",
+    "unifi",
+    "network",
+    "firewall",
+    "api",
+    "typescript",
+    "zone-based-firewall",
+    "model-context-protocol",
+    "automation",
+    "networking",
+    "gateway",
+    "wifi",
+    "ubiquiti",
+    "openapi",
+    "swagger",
+    "documentation",
+    "web-server"
+  ],
+  "author": "Gilbert H",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gilberth/unifi-mcp-server.git"
+  },
+  "homepage": "https://github.com/gilberth/unifi-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/gilberth/unifi-mcp-server/issues"
+  },
+  "bin": {
+    "unifi-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "GETTING_STARTED.md",
+    ".env.example"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "https": "^1.0.0",
+    "node-cron": "^3.0.3",
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^20.11.19",
+    "@types/node-cron": "^3.0.11",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.56.0",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,50 @@
+# Source files
+src/
+*.ts
+!*.d.ts
+
+# Development files
+.env
+*.log
+logs/
+node_modules/
+coverage/
+
+# Build artifacts
+tsconfig.json
+.eslintrc.cjs
+
+# Development tools
+Dockerfile*
+docker-compose.yml
+.dockerignore
+
+# Documentation (only keep essential ones)
+test.md
+*.test.*
+*.spec.*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# NPM
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
